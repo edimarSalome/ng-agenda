@@ -1,0 +1,115 @@
+.btn, *[ng-click]{
+    cursor: pointer;
+}
+.data-agenda{
+    min-height: 109px;
+}
+.data-agenda h1{
+    font-size: 3.5rem;
+}
+.data-agenda-1{
+    min-height: 109px;
+}
+.data-agenda-1 .control-day h1, .data-agenda-1 .control-week h1{
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    width:150px;
+    text-align: center;
+    float:left;
+}
+.data-agenda-1 .control-week h1{
+    font-size: 2.5rem;
+}
+.data-agenda-1 .control-month p{
+    width:150px;
+    text-align: center;
+    float:left;
+}
+.data-agenda-1 .control-day .btn, .data-agenda-1 .control-month .btn, .data-agenda-1 .control-week .btn{
+    margin-top: 1.3rem;
+    float:left;
+}
+.data-agenda-1 .control-month .btn{
+    margin-top: .6rem;
+}
+table.agenda-day thead tr{
+}
+table.agenda-day thead tr td{
+    padding:0px;
+    border-color: transparent;
+}
+table.agenda-day tbody.active, table.agenda-day tbody tr td.active, ul.agenda-month li.active{
+    background-color: #fffbee;
+}
+table.agenda-day tbody tr{
+    border-bottom: 1px solid #ddd;
+}
+table.agenda-day tbody tr td:first-child{
+    font-weight: bold;
+}
+table.agenda-day tbody tr td{
+    padding:1rem;
+}
+table.agenda-day tbody tr td.agenda-usuario{
+    padding:1rem;
+    border-right: .3rem solid #fff;
+}
+ul.agenda-month{
+    display: inline-block;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+ul.agenda-month li{
+    width: 14.28571428571429%;
+    border-bottom: 1px solid #ddd;
+    border-right:1px solid #ddd;
+    padding:1rem;
+    float:left;
+    height:100px;
+}
+ul.agenda-month li.week-Day{
+    height: auto;
+    text-align: center;
+    padding: .3rem;
+}
+ul.agenda-month li.past-day, ul.agenda-month li.future-day{
+    background: #fafafa;
+}
+
+.btn-default{
+    background: #fff;
+    border: 1px solid #eee;
+}
+ul.minutos, ul.agenda-month{
+    margin:0px;
+    padding: 0px;
+    list-style: none;
+}
+ul.minutos li{
+    border-bottom: 1px solid #eee;
+    font-size: .8rem;
+    padding: .3rem;
+    height:29.59px;
+}
+ul.minutos li:hover, ul.agenda-month li:hover{
+    background-color: #fafafa;
+}
+.text-bold{font-weight: bold;}
+
+.event-view{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    border-left: 5px solid #984531;
+    padding: 0 .5rem;
+    margin-top: -.3rem;
+    height:30px;
+    overflow: hidden;
+}
+.event-view-month{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 0 .5rem;
+    height:30px;
+}

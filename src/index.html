@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="angular-agenda">
+    <head>
+        <title>AngularJs ng-agenda</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body ng-controller="agendaCtrl as $ctrl">
+        <h1 class="text-center mt-1">AngularJs ng-agenda</h1>
+        <div class="container">
+            <div class="row data-agenda-1">
+                <!---- VIEW: Day --->
+                <div class="col-12 mt-5 control-day" ng-if="isView('day')">
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.previous()"> < </button>
+                    <h1 class="m-0" ng-bind="getDate().format('DD')"></h1>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.next()"> > </button>
+                    <button ng-if="!isToday()" class="btn btn-sm btn-outline-secondary ml-3" ng-click="$ctrl.today()">Hoje</button>
+                    <div class="btn-group float-right">
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('day')" ng-class="isView('day') ? 'btn-secondary' : 'btn-outline-secondary'">Dia</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('week')" ng-class="isView('week') ? 'btn-secondary' : 'btn-outline-secondary'">Semana</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('month')" ng-class="isView('month') ? 'btn-secondary' : 'btn-outline-secondary'">Mês</button>
+                    </div>
+                </div>
+                <!---- VIEW: Week --->
+                <div class="col-12 mt-5 control-week" ng-if="isView('week')">
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.previousWeek()"> < </button>
+                    <h1 class="m-0" ng-bind="getDate().startOf('week').format('DD')+' a '+getDate().endOf('week').format('DD')"></h1>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.nextWeek()"> > </button>
+                    <button ng-if="!isTodayWeek()" class="btn btn-sm btn-outline-secondary ml-3" ng-click="$ctrl.today()">Hoje</button>
+                    <div class="btn-group float-right">
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('day')" ng-class="isView('day') ? 'btn-secondary' : 'btn-outline-secondary'">Dia</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('week')" ng-class="isView('week') ? 'btn-secondary' : 'btn-outline-secondary'">Semana</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('month')" ng-class="isView('month') ? 'btn-secondary' : 'btn-outline-secondary'">Mês</button>
+                    </div>
+                </div>
+                <!---- VIEW: Month --->
+                <div class="col-12 mt-5 control-week" ng-if="isView('month')" style="height: 56px;">
+                    <div class="btn-group float-right">
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('day')" ng-class="isView('day') ? 'btn-secondary' : 'btn-outline-secondary'">Dia</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('week')" ng-class="isView('week') ? 'btn-secondary' : 'btn-outline-secondary'">Semana</button>
+                        <button class="btn btn-sm" ng-click="$ctrl.setView('month')" ng-class="isView('month') ? 'btn-secondary' : 'btn-outline-secondary'">Mês</button>
+                    </div>
+                </div>
+                <div class="col-12 control-month">
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.previousMonth()"> < </button>
+                    <p class="m-0">
+                        <span ng-bind="getDate().format('MMMM')"></span>
+                        <br>
+                        <span ng-bind="getDate().format('YYYY')"></span>
+                    </p>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.nextMonth()"> > </button>
+                    <div class="float-right">
+                        <button class="btn btn-sm mr-1" 
+                            ng-repeat="usuario in usuarios" 
+                            ng-bind="usuario.nome"
+                            ng-click="usuario.ativo = !usuario.ativo"
+                            ng-class="usuario.ativo ? 'btn-secondary' : 'btn-outline-secondary'"
+                        ></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <!--- VIEW: Day -->
+                    <table class="table agenda-day" ng-if="isView('day')">
+                        <thead>
+                            <tr>
+                                <td width="1%" title="horários">&nbsp;</td>
+                                <td width="1%" title="minutos">&nbsp;</td>
+                                <td width="{{98 / usuarios.length + '%'}}" class="text-center agenda-usuario" title="Usuário" ng-repeat="usuario in usuarios| filter: filtroUsuarios" ng-bind="usuario.nome"></td>
+                            </tr>
+                        </thead>
+                        <tbody ng-class="{'active' : isToday()}">
+                            <tr ng-repeat="hora in horas">
+                                <td title="Horas" class="py-0 pr-0" ng-bind="hora.desc"></td>
+                                <td title="Minutos" class="p-0">
+                                    <ul class="minutos">
+                                        <li ng-repeat="min in minutos" ng-bind="min.desc"></li>
+                                    </ul>
+                                </td>
+                                <td class="agenda-usuario p-0" title="Usuários" ng-repeat="usuario in usuarios| filter: filtroUsuarios">
+                                    <ul class="minutos">
+                                        <li 
+                                            ng-repeat="min in minutos" 
+                                            ng-click="dClick(hora.desc, min.desc, usuario, $event)"
+                                            ng-bind-html="parseDayEvent(hora.desc, min.desc, usuario)">&nbsp;</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--- VIEW: Week -->
+                    <table class="table agenda-day" ng-if="isView('week')">
+                        <thead>
+                            <tr>
+                                <td width="1%" title="horários">&nbsp;</td>
+                                <td width="1%" title="minutos">&nbsp;</td>
+                                <!---td width="{{100 / usuarios.length + '%'}}" class="text-center agenda-usuario" title="Usuário" ng-repeat="usuario in usuarios| filter: filtroUsuarios" ng-bind="usuario.nome"></td--->
+                                <td width="{{98 / weekDays.length + '%'}}" class="text-center agenda-usuario text-bold" title="Usuário" ng-repeat="wDay in weekDays" ng-bind="wDay.format('ddd - DD/MM')"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="hora in horas">
+                                <td title="Horas" class="py-0 pr-0" ng-bind="hora.desc"></td>
+                                <td title="Minutos" class="p-0">
+                                    <ul class="minutos">
+                                        <li ng-repeat="min in minutos" ng-bind="min.desc"></li>
+                                    </ul>
+                                </td>
+                                <td class="agenda-usuario p-0" title="Dias da semana" ng-repeat="wDay in weekDays" ng-class="{'active' : wDay.isSame(moment(), 'day')}">
+                                    <ul class="minutos">
+                                        <li 
+                                            ng-repeat="min in minutos" 
+                                            ng-click="wClick(hora.desc, min.desc, wDay, $event)" 
+                                            ng-bind-html="parseWeekEvent(hora.desc, min.desc, wDay)">&nbsp;</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--- VIEW: Month --->
+                    <ul class="agenda-month" ng-if="isView('month')">
+                        <li class="week-Day" ng-repeat="mWeekDay in weekDays" ng-bind="mWeekDay.format('ddd')"></li>
+                        <li class="past-day" ng-repeat="start in getMonthRepeater('start')">&nbsp;</li>
+                        <li ng-repeat="mDay in monthDays" ng-class="{'active' : mDay.isSame(moment(), 'day')}" ng-click="monthClick(mDay)">
+                            <span ng-bind="mDay.format('DD')"></span>
+                            <div ng-bind-html="parseMonthEvent(mDay)"></div>
+                        </li>
+                        <li class="future-day" ng-repeat="end in getMonthRepeater('end')">&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/pt-br.js"></script>
+        <script src="js/angular-agenda.js" type="text/javascript"></script>
+    </body>
+</html>

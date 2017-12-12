@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="angular-agenda">
+    <head>
+        <title>AngularJs ng-agenda</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="css/ngAgenda.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body ng-controller="agendaCtrl as $ctrl">
+        <h1 class="text-center my-3">AngularJs ng-agenda</h1>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-4 p-0">
+                    <div class="row">
+                        <div class="col-12 my-3">
+                            <table class="month-switch">
+                                <tr>
+                                    <td width="1%"><button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.previousMonth()"> < </button></td>
+                                    <td ng-click="$ctrl.setView('month')"><span ng-bind="getDate().format('MMMM YYYY')"></span>
+                                    <td width="1%"><button class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.nextMonth()"> > </button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!--- VIEW: Day -->
+                    <div ng-if="isView('week')">
+                        <div class="row">
+                            <div class="col-12 p-0 mb-3">
+                                <ul class="nav-week-days">
+                                    <li class="previous-week">
+                                        <button type="button" class="btn" ng-click="$ctrl.previousWeek()"> < </button>
+                                    </li>
+                                    <li ng-repeat="wDay in weekDays" ng-class="{'today' : wDay.isSame(moment(), 'day'), 'active': isDataAgenda(wDay)}" ng-click="$ctrl.setDataAgenda(wDay)">
+                                        <span ng-bind="wDay.format('ddd')"></span><br>
+                                        <span ng-bind="wDay.format('D')"></span>
+                                    </li>
+                                    <li class="next-week">
+                                        <button type="button" class="btn" ng-click="$ctrl.nextWeek()"> > </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 p-0">
+                                <table class="table agenda-day">
+                                    <thead>
+                                        <tr>
+                                            <td width="2%" colspan="2">
+                                                <button ng-if="!isToday()" class="btn btn-sm btn-outline-secondary" ng-click="$ctrl.today()">Hoje</button>
+                                            </td>
+                                            <td width="{{98 / usuarios.length + '%'}}" class="text-center agenda-usuario" title="Usuário" ng-repeat="usuario in usuarios| filter: filtroUsuarios" ng-bind="usuario.nome"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-class="{'today' : isToday()}">
+                                        <tr ng-repeat="hora in horas">
+                                            <td title="Horas" class="py-0" ng-bind="hora.desc"></td>
+                                            <td title="Minutos" class="p-0">
+                                                <ul class="minutos">
+                                                    <li ng-repeat="min in minutos" ng-bind="min.desc"></li>
+                                                </ul>
+                                            </td>
+                                            <td class="agenda-usuario p-0" title="Usuários" ng-repeat="usuario in usuarios| filter: filtroUsuarios">
+                                                <ul class="horarios">
+                                                    <li 
+                                                        ng-repeat="min in minutos" 
+                                                        ng-click="dClick(hora.desc, min.desc, usuario, $event)"
+                                                        ng-bind-html="parseDayEvent(hora.desc, min.desc, usuario)">&nbsp;</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--- VIEW: Month --->
+                    <div class="row" ng-if="isView('month')">
+                        <div class="col-12 p-0">
+                            <ul class="agenda-month">
+                                <li class="week-Day" ng-repeat="mWeekDay in weekDays" ng-bind="mWeekDay.format('ddd')"></li>
+                                <li class="past-day" ng-repeat="start in getMonthRepeater('start')">&nbsp;</li>
+                                <li ng-repeat="mDay in monthDays" ng-class="{'today' : mDay.isSame(moment(), 'day'), 'active': isDataAgenda(mDay)}" ng-click="monthClickMobile(mDay)">
+                                    <span ng-bind="mDay.format('D')"></span>
+                                    <!--div ng-bind-html="parseMonthEvent(mDay)"></div-->
+                                </li>
+                                <li class="future-day" ng-repeat="end in getMonthRepeater('end')">&nbsp;</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
+        <script src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/pt-br.js"></script>
+        <script src="js/ng-agenda.min.js" type="text/javascript"></script>
+    </body>
+</html>

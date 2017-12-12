@@ -1,0 +1,110 @@
+body {
+  font-weight: 200;
+  font-size: 14px; }
+  body *[ng-click] {
+    cursor: pointer; }
+  body h1 {
+    font-weight: 200; }
+  body table.month-switch {
+    font-weight: 500;
+    text-align: center; }
+    body table.month-switch .btn {
+      border: 0px; }
+  body ul.nav-week-days {
+    padding: 0px;
+    margin: 0px;
+    list-style: none; }
+    body ul.nav-week-days li {
+      background: #fafafa;
+      float: left;
+      width: 11.111%;
+      text-align: center;
+      line-height: 1.5rem;
+      padding: .5rem 0rem; }
+      body ul.nav-week-days li.today {
+        background-color: #fffbee; }
+      body ul.nav-week-days li span:first-child {
+        color: #aaa; }
+      body ul.nav-week-days li.next-week, body ul.nav-week-days li.previous-week {
+        line-height: 3rem; }
+        body ul.nav-week-days li.next-week:hover, body ul.nav-week-days li.previous-week:hover {
+          background: #eee; }
+        body ul.nav-week-days li.next-week .btn, body ul.nav-week-days li.previous-week .btn {
+          background: transparent;
+          box-shadow: none; }
+      body ul.nav-week-days li.active {
+        background: #6fc6db;
+        border-color: #6fc6db; }
+        body ul.nav-week-days li.active span {
+          color: #fff !important; }
+  body ul.agenda-month {
+    background: #fafafa;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    list-style: none; }
+    body ul.agenda-month li {
+      width: 14.28571428571429%;
+      padding: 1rem;
+      float: left;
+      text-align: center; }
+      body ul.agenda-month li.week-Day {
+        height: auto;
+        text-align: center;
+        padding: .3rem; }
+      body ul.agenda-month li.past-day, body ul.agenda-month li.future-day {
+        background: #fafafa; }
+      body ul.agenda-month li:hover {
+        background-color: #fafafa; }
+      body ul.agenda-month li.today {
+        background-color: #fffbee; }
+      body ul.agenda-month li.active {
+        background-color: #6fc6db;
+        color: #fff !important; }
+  body .text-primary {
+    color: #6fc6db !important; }
+
+table.agenda-day {
+  overflow: hidden; }
+  table.agenda-day thead tr {
+    line-height: 34px;
+    font-weight: 500; }
+    table.agenda-day thead tr td {
+      padding: 0px;
+      border-color: transparent; }
+  table.agenda-day tbody tr {
+    border-bottom: 1px solid #ddd; }
+  table.agenda-day tbody td {
+    padding: .3rem;
+    padding-left: .5rem;
+    vertical-align: middle; }
+    table.agenda-day tbody td.agenda-usuario {
+      padding: 1rem;
+      border-right: .3rem solid #fff; }
+    table.agenda-day tbody td:first-child {
+      font-weight: 500; }
+  table.agenda-day .today {
+    background-color: #fffbee; }
+table ul.minutos, table ul.horarios {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
+  table ul.minutos li, table ul.horarios li {
+    border-top: 1px solid #eee;
+    font-size: .8rem;
+    padding: .3rem;
+    height: 29.59px; }
+    table ul.minutos li:first-child, table ul.horarios li:first-child {
+      border: 0px; }
+    table ul.minutos li:hover, table ul.horarios li:hover {
+      background-color: #fafafa; }
+table ul.horarios li {
+  padding: .3rem 0px; }
+table .event-view {
+  background: #fff;
+  border-left: 5px solid #984531;
+  padding: 0 .5rem;
+  margin-top: -.3rem;
+  height: 29px;
+  overflow: hidden;
+  font-size: .7rem; }

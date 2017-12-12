@@ -1,0 +1,209 @@
+$primary:#6fc6db;
+$border:#ddd;
+$disabled:#aaa;
+$bgLight:#fafafa;
+
+body{
+    font-weight:200;
+    font-size:14px;
+    
+    *[ng-click]{
+        cursor: pointer;
+    }
+    
+    h1{
+        font-weight: 200;
+    }
+    
+
+    table{
+        &.month-switch{
+            font-weight: 500;
+            text-align:center;
+
+            .btn{
+                border:0px;
+            }
+        }
+    }
+    ul{
+        &.nav-week-days{
+            padding:0px;
+            margin:0px;
+            list-style: none;
+
+            li{
+                background:$bgLight;
+                float:left;
+                //border-top: 1px solid $border;
+                //border-bottom: 1px solid $border;
+                width: 11.111%;
+                text-align: center;
+                line-height: 1.5rem;
+                padding: .5rem 0rem;
+                
+                &.today{
+                    background-color: #fffbee;
+                }
+
+                span{
+                    &:first-child{
+                        color: $disabled;
+                    }
+                    &:last-child{
+
+                    }
+                }
+
+                &.next-week, &.previous-week{
+                    line-height: 3rem;
+                    
+                    &:hover{
+                        background: #eee;
+                    }
+                    
+                    .btn{
+                        background: transparent;
+                        box-shadow: none;
+                    }
+                }
+                
+                &.active{
+                    background:$primary;
+                    border-color:$primary;
+                    
+                    span{
+                        color:#fff !important;
+                    }
+                }
+            }
+        }
+        
+        &.agenda-month{
+            background: #fafafa;
+            display: inline-block;
+            //border-left: 1px solid $border;
+            //border-top: 1px solid $border;
+            margin:0px;
+            padding: 0px;
+            list-style: none;
+
+            li{
+                width: 14.28571428571429%;
+                //border-bottom: 1px solid $border;
+                //border-right:1px solid $border;
+                padding:1rem;
+                float:left;
+                text-align:center;
+
+                &.week-Day{
+                    height: auto;
+                    text-align: center;
+                    padding: .3rem;
+                }
+
+                &.past-day, &.future-day{
+                    background: $bgLight;
+                }
+
+                &:hover{
+                    background-color: $bgLight;
+                }
+
+                &.today{
+                    background-color: #fffbee;
+                }
+
+                &.active{
+                    background-color: $primary;
+                    color:#fff !important;
+                }
+            }
+        }
+    }
+    
+    .text-primary{color:$primary !important;}
+}
+
+table{
+    &.agenda-day {
+        overflow:hidden;
+        
+        thead tr{
+            line-height: 34px;
+            font-weight:500;
+            
+            td{
+                padding:0px;
+                border-color: transparent;
+            }
+        }
+        
+        tbody {
+            tr{
+                border-bottom: 1px solid #ddd;
+            }
+            
+            td{
+                
+                padding:.3rem;
+                padding-left: .5rem;
+                vertical-align: middle;
+                
+                &.agenda-usuario{
+                    padding:1rem;
+                    border-right: .3rem solid #fff;
+                }
+                
+                &:first-child{
+                    font-weight: 500;
+                }
+            }
+        }
+        
+        .today{
+            background-color: #fffbee;
+        }
+    }
+    
+    ul.minutos{
+        margin:0px;
+        padding: 0px;
+        list-style: none;
+        
+        li{
+            border-top: 1px solid #eee;
+            font-size: .8rem;
+            padding: .3rem;
+            height:29.59px;
+        
+            &:first-child{
+                border:0px;
+            }
+
+            &:hover{
+                background-color: #fafafa;
+            }
+        }
+    }
+    
+    ul.horarios{
+        @extend ul.minutos;
+        
+        li{
+            padding:.3rem 0px;
+        }
+    }
+
+    .event-view{
+        background: #fff;
+        //border: 1px solid #ddd;
+        //border-radius: 3px;
+        border-left: 5px solid #984531;
+        padding: 0 .5rem;
+        margin-top: -.3rem;
+        height:29px;
+        overflow: hidden;
+        font-size: .7rem;
+    }
+}
