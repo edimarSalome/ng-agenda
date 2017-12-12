@@ -1,7 +1,5 @@
 ##AngularJs ng-agenda
 
-[Link](https://github.com/edimarSalome/ng-agenda/edit/master/README.md) 
-
 Componente construído utilizando angularJs, bootstrap e momentJs.
 
 O visual foi criado utilizando Sass porém pode ser facilmente personalizado apenas substituindo o arquivo ngAgenda.css por sua folha de estilos.
